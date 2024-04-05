@@ -131,23 +131,23 @@ function myMap(collection, callback) {
 }
 
 // myReduce function
+// myReduce function
 function myReduce(collection, callback, acc) {
     let startIdx = 0;
+    const values = Object.values(collection);
+
     if (!acc) {
-        acc = collection[0];
+        acc = values[0];
         startIdx = 1;
     }
-    if (Array.isArray(collection)) {
-        for (let i = startIdx; i < collection.length; i++) {
-            acc = callback(acc, collection[i], collection);
-        }
-    } else {
-        for (const key in collection) {
-            acc = callback(acc, collection[key], collection);
-        }
+
+    for (let i = startIdx; i < values.length; i++) {
+        acc = callback(acc, values[i], collection);
     }
+    
     return acc;
 }
+
 
 // myFind function
 function myFind(collection, predicate) {
@@ -199,9 +199,23 @@ function mySize(collection) {
 }
 
 // myFirst function
-function myFirst(array, n = 1) {
-    return array.slice(0, n);
+// myFirst function
+// myFirst function
+// myFirst function
+function myFirst(collection, n = 1) {
+    if (Array.isArray(collection)) {
+        return collection.slice(0, n);
+    } else if (typeof collection === 'object' && collection !== null) {
+        const keys = Object.keys(collection);
+        const values = keys.map(key => collection[key]);
+        return values.slice(0, n);
+    } else {
+        return undefined;
+    }
 }
+
+
+
 
 // myLast function
 // myLast function
@@ -220,6 +234,14 @@ function myLast(collection, n = 1) {
             return values.slice(-n);
         }
     }
+}
+// myValues function
+function myValues(object) {
+    return Object.values(object);
+}
+// myKeys function
+function myKeys(object) {
+    return Object.keys(object);
 }
 
 
